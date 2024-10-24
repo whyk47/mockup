@@ -1,5 +1,9 @@
 {% extends 'recruitment/layout.html' %}
 
 {% block body %}
-    <p>Hello</p>
+    {% for job in jobs %}
+        {% include "recruitment/components/job_card.html" %}
+    {% empty %}
+        <div>No Jobs Yet</div>
+    {% endfor %}
 {% endblock %}

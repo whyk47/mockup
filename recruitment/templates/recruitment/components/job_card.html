@@ -1,0 +1,11 @@
+<div class="card my-1">
+    <div class="card-body">
+        <a href="{% url 'recruitment:details' job.id %}">
+            <h3 class="card-title text-dark">{{ job.title }}</h3>
+        </a>
+        <div class="card-text">
+            <div>${{ job.monthly_pay_in_thousands }}k/month</div>
+            <div>{{ job.company }}</div>
+        </div>
+    </div>
+</div>
