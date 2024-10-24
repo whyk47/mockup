@@ -3,4 +3,6 @@ from django.http import HttpResponse, HttpResponseRedirect, HttpRequest
 
 
 def index(request: HttpRequest) -> HttpResponse | HttpResponseRedirect:
-    return HttpResponse("Hello")
+    return render(request, 'recruitment/index.html', {
+        
+    })
