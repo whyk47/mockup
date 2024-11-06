@@ -3,12 +3,13 @@ import os
 from django.contrib.gis.geos import GEOSGeometry
 from django.contrib.gis.measure import D
 from django.db.models.manager import BaseManager
+from .exceptions import GOOGLE_MAPS_REQUEST_ERROR
 
 def geocode_address(address: str) -> tuple[float, float]:
     api_key = os.environ.get('GOOGLE_MAP_API_KEY')
     url = f'https://maps.googleapis.com/maps/api/geocode/json?address={address}&key={api_key}'
     response = requests.get(url)
-    print(api_key, response.json())
+    print(response.json())
     location = response.json()['results'][0]['geometry']['location']
     return location['lat'], location['lng']
 

@@ -4,6 +4,7 @@ from django.db.models import Q
 
 from .util import *
 from .models import *
+from .exceptions import *
 
 
 def index(request: HttpRequest) -> HttpResponse | HttpResponseRedirect:
@@ -20,7 +21,10 @@ def index(request: HttpRequest) -> HttpResponse | HttpResponseRedirect:
     if request.GET.get('max_salary'):
         queryset = queryset.filter(monthly_pay__lte=request.GET.get('max_salary'))
     if request.GET.get('address'):
-        queryset = dist_filter(queryset, request.GET.get('address'), request.GET.get('radius') or 20)
+        try: 
+            queryset = dist_filter(queryset, request.GET.get('address'), request.GET.get('radius') or 20)
+        except GOOGLE_MAPS_REQUEST_ERROR as e:
+            print(e)
     return render(request, 'recruitment/index.html', {
         'jobs': queryset.all(),
         **request.GET.dict(),
