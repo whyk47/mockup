@@ -9,7 +9,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="filterLabel">New message</h5>
+          <h5 class="modal-title" id="filterLabel">Filter Jobs</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         </div>
         <div class="modal-body">
@@ -20,16 +20,26 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text">$</span>
                   </div>
-                  <input type="number" class="form-control" name="min_salary" placeholder="Min Salary" value={{ min_salary|default:"" }} />
+                  <input type="number" class="form-control" name="min_salary" placeholder="Min Salary" value="{{ min_salary }}" />
                 </div>
                 <span class="mx-1">-</span>
                 <div class="input-group input-group-sm" style="max-width: 130px;">
                   <div class="input-group-prepend">
                     <span class="input-group-text">$</span>
                   </div>
-                  <input type="number" class="form-control" name="max_salary" placeholder="Max Salary" value={{ max_salary|default:"" }} />
+                  <input type="number" class="form-control" name="max_salary" placeholder="Max Salary" value="{{ max_salary }}" />
                 </div>
               </div>  
+              <div class="mt-2">Location:</div>
+              <div class="form-inline">
+                <input type="text" class="form-control mr-2" name="address" placeholder="Address" value="{{ address }}" />
+                <div class="input-group input-group-sm">
+                  <input type="number" class="form-control" name="radius" placeholder="Filter Radius" value="{{ radius }}" />
+                    <div class="input-group-append">
+                      <span class="input-group-text">km</span>
+                    </div>
+                </div>
+              </div>
             </div>
         </div>
         <div class="modal-footer">
