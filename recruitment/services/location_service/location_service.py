@@ -3,6 +3,8 @@ from django.contrib.gis.geos import Point
 from django.db.models.manager import BaseManager
 from django.contrib.gis.db.models.functions import Distance
 
+from .location_service_exceptions import NoAddressException
+
 
 class LocationService:
     def __new__(cls):
@@ -29,6 +31,8 @@ class LocationService:
         return queryset
     
     def dist_sort(self, queryset: BaseManager, address: str, descending: bool=False) -> BaseManager:
+        if not address:
+            raise NoAddressException("Address is required")
         user_location = self.get_point(address)
         queryset = queryset.annotate(distance=Distance('location', user_location))
         if descending:

@@ -1,0 +1,2 @@
+class NoAddressException(Exception):
+    pass
