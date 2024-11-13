@@ -21,11 +21,17 @@ def index(request: HttpRequest) -> HttpResponse | HttpResponseRedirect:
         queryset = queryset.filter(monthly_pay__gte=request.GET.get('min_salary'))
     if request.GET.get('max_salary'):
         queryset = queryset.filter(monthly_pay__lte=request.GET.get('max_salary'))
-    if request.GET.get('address'):
+    if request.GET.get('address') and request.GET.get('radius'):
         queryset = loc.dist_filter(queryset, request.GET.get('address'), int(request.GET.get('radius')) or 20)
-    # if request.GET.get('sort'):
-    #     match request.GET.get('sort'): 
-    
+    match request.GET.get('sort'): 
+        case 'salary_low':
+            queryset = queryset.order_by('monthly_pay')
+        case 'salary_high':
+            queryset = queryset.order_by('-monthly_pay')
+        case 'dist_low':
+            queryset = loc.dist_sort(queryset, request.GET.get('address'))
+        case 'dist_high':
+            queryset = loc.dist_sort(queryset, request.GET.get('address'), descending=True)
     return render(request, 'recruitment/index.html', {
         'jobs': queryset.all(),
         **request.GET.dict(),

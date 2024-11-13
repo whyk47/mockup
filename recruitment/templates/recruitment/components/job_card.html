@@ -9,7 +9,12 @@
         <div class="card-text">
             <div>${{ job.monthly_pay|div:'1000' }}k/month</div>
             <div>{{ job.company }}</div>
-            <div>{{ job.address }} ({{ job.distance.km|floatformat:1 }}km away)</div>
+            <div>
+                {{ job.address }} 
+                {% if job.distance %}
+                    ({{ job.distance.km|floatformat:1 }}km away)
+                {% endif %}
+            </div>
         </div>
     </div>
 </div>

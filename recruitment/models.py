@@ -14,7 +14,7 @@ class Job(models.Model):
     def save(self, *args, **kwargs):
         loc = LocationService()
         if self.address:
-            self.location = loc.geocode(self.address)
+            self.location = loc.get_point(self.address)
         else:
             raise Exception("Address is required")
         super().save(*args, **kwargs)

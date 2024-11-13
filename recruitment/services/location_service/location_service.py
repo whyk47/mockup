@@ -27,3 +27,10 @@ class LocationService:
         user_location = self.get_point(address)
         queryset = queryset.annotate(distance=Distance('location', user_location)).filter(distance__lte=dist_km * 1000)
         return queryset
+    
+    def dist_sort(self, queryset: BaseManager, address: str, descending: bool=False) -> BaseManager:
+        user_location = self.get_point(address)
+        queryset = queryset.annotate(distance=Distance('location', user_location))
+        if descending:
+            return queryset.order_by('-distance')
+        return queryset.order_by('distance')
