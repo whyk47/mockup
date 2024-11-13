@@ -7,14 +7,16 @@
             <h3 class="card-title text-dark">{{ job.title }}</h3>
         </a>
         <div class="card-text">
-            <div>${{ job.monthly_pay|div:'1000' }}k/month</div>
-            <div>{{ job.company }}</div>
+            <div>💲{{ job.monthly_pay|div:'1000' }}k/month</div>
+            <div>🏢{{ job.company }}</div>
             <div>
-                {{ job.address }} 
+                📍{{ job.address }} 
                 {% if job.distance %}
                     ({{ job.distance.km|floatformat:1 }}km away)
                 {% endif %}
             </div>
+            <div>💼{{ job.job_type }}</div>
+            <div>📆{{ job.created_at|date:"SHORT_DATE_FORMAT" }}</div>
         </div>
     </div>
 </div>
