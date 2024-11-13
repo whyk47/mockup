@@ -10,9 +10,13 @@
             <div>💲{{ job.monthly_pay|div:'1000' }}k/month</div>
             <div>🏢{{ job.company }}</div>
             <div>
-                📍{{ job.address }} 
-                {% if job.distance %}
-                    ({{ job.distance.km|floatformat:1 }}km away)
+                {% if job.remote %}
+                    📍Remote
+                {% else %}
+                    📍{{ job.address }} 
+                    {% if job.distance %}
+                        ({{ job.distance.km|floatformat:1 }}km away)
+                    {% endif %}
                 {% endif %}
             </div>
             <div>💼{{ job.job_type }}</div>

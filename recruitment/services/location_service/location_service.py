@@ -2,6 +2,7 @@ from geopy.geocoders import Nominatim
 from django.contrib.gis.geos import Point
 from django.db.models.manager import BaseManager
 from django.contrib.gis.db.models.functions import Distance
+from django.db.models import Q
 
 from .location_service_exceptions import NoAddressException
 
@@ -27,7 +28,10 @@ class LocationService:
     
     def dist_filter(self, queryset: BaseManager, address: str, dist_km: int = 20) -> BaseManager:
         user_location = self.get_point(address)
-        queryset = queryset.annotate(distance=Distance('location', user_location)).filter(distance__lte=dist_km * 1000)
+        queryset = queryset.annotate(distance=Distance('location', user_location)).filter(
+            Q(distance__lte=dist_km * 1000) |
+            Q(remote=True)
+            )
         return queryset
     
     def dist_sort(self, queryset: BaseManager, address: str) -> BaseManager:

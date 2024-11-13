@@ -7,12 +7,12 @@ class Job(models.Model):
         FULL_TIME = "Full Time"
         PART_TIME = "Part Time"
         INTERN = "Internship"
-        
+
     title = models.CharField(max_length=100)
     description = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     monthly_pay = models.IntegerField()
-    address = models.CharField(max_length=300, null=True)
+    address = models.CharField(max_length=300, null=True, blank=True)
     location = PointField(blank=True, null=True, geography=True, srid=4326)
     company = models.CharField(max_length=100, null=True)
     remote = models.BooleanField(default=False)

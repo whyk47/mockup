@@ -1,0 +1,17 @@
+{% extends 'recruitment/layout.html' %}
+{% load templates %}
+
+<h3 class="card-title text-dark">{{ job.title }}</h3>
+
+<div class="card my-1">
+    <div>💲{{ job.monthly_pay|div:'1000' }}k/month</div>
+    <div>🏢{{ job.company }}</div>
+    <div>
+        📍{{ job.address }} 
+        {% if job.distance %}
+            ({{ job.distance.km|floatformat:1 }}km away)
+        {% endif %}
+    </div>
+    <div>💼{{ job.job_type }}</div>
+    <div>📆{{ job.created_at|date:"SHORT_DATE_FORMAT" }}</div>
+</div>
