@@ -1,4 +1,5 @@
 {% load templates %}
+{% load humanize %}
 
 <div class="card my-1">
     <div class="card-body">
@@ -8,6 +9,7 @@
         <div class="card-text">
             <div>${{ job.monthly_pay|div:'1000' }}k/month</div>
             <div>{{ job.company }}</div>
+            <div>{{ job.address }} ({{ job.distance.km|floatformat:1 }}km away)</div>
         </div>
     </div>
 </div>

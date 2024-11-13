@@ -2,9 +2,10 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect, HttpRequest
 from django.db.models import Q
 
-from .util import *
 from .models import *
-from .exceptions import *
+from .services.location_service.location_service import LocationService
+
+loc = LocationService()
 
 
 def index(request: HttpRequest) -> HttpResponse | HttpResponseRedirect:
@@ -21,10 +22,10 @@ def index(request: HttpRequest) -> HttpResponse | HttpResponseRedirect:
     if request.GET.get('max_salary'):
         queryset = queryset.filter(monthly_pay__lte=request.GET.get('max_salary'))
     if request.GET.get('address'):
-        try: 
-            queryset = dist_filter(queryset, request.GET.get('address'), request.GET.get('radius') or 20)
-        except GOOGLE_MAPS_REQUEST_ERROR as e:
-            print(e)
+        queryset = loc.dist_filter(queryset, request.GET.get('address'), int(request.GET.get('radius')) or 20)
+    # if request.GET.get('sort'):
+    #     match request.GET.get('sort'): 
+    
     return render(request, 'recruitment/index.html', {
         'jobs': queryset.all(),
         **request.GET.dict(),

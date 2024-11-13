@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.gis',
     'mapwidgets',
+    'django.contrib.humanize',
 ]
 
 MIDDLEWARE = [

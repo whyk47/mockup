@@ -9,8 +9,10 @@ def geocode_address(address: str) -> tuple[float, float]:
     api_key = os.environ.get('GOOGLE_MAP_API_KEY')
     url = f'https://maps.googleapis.com/maps/api/geocode/json?address={address}&key={api_key}'
     response = requests.get(url)
-    print(response.json())
-    location = response.json()['results'][0]['geometry']['location']
+    result = response.json()
+    if not result['status'] == 'OK':
+        raise GOOGLE_MAPS_REQUEST_ERROR
+    location = result['results'][0]['geometry']['location']
     return location['lat'], location['lng']
 
 def dist_filter(queryset: BaseManager, address: str, dist_km: int = 20) -> BaseManager:
