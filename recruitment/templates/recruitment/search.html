@@ -1,0 +1,12 @@
+{% extends 'recruitment/layout.html' %}
+{% load templates %}
+
+{% block body %}
+  <div class="text-danger">{{ error|default:"" }}</div>
+  {% include 'recruitment/components/filter_form.html' %}
+  {% for job in jobs %}
+    {% include 'recruitment/components/job_card.html' %}
+  {% empty %}
+    <div>No Jobs Yet</div>
+  {% endfor %}
+{% endblock %}

@@ -16,3 +16,9 @@ def details(request: HttpRequest, job_id: int) -> HttpResponse | HttpResponseRed
     return render(request, 'recruitment/job.html', {
         'job': job.job(job_id),
     })
+
+def search(request: HttpRequest) -> HttpResponse | HttpResponseRedirect:
+    return render(request, 'recruitment/search.html', {
+        **job.filter(request),
+        **request.GET.dict(),
+    })
