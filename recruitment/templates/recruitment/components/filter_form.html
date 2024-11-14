@@ -82,11 +82,11 @@
 
               <div class="form-inline mt-2">
                 <select class="form-select" aria-label="Default select example" name="date">
-                  <option selected disabled>Date Posted</option>
-                  <option value="any">Any Date</option>
-                  <option value="week">Last Week</option>
-                  <option value="month">Last Month</option>
-                  <option value="year">Last Year</option>
+                  <option disabled>Date Posted</option>
+                  <option value="any" {% if date == 'any' %}selected{% endif %}>Any Date</option>
+                  <option value="week" {% if date == 'week' %}selected{% endif %}>Last Week</option>
+                  <option value="month" {% if date == 'month' %}selected{% endif %}>Last Month</option>
+                  <option value="year" {% if date == 'year' %}selected{% endif %}>Last Year</option>
                 </select>
               </div>
               
@@ -94,10 +94,10 @@
               {% comment %} * Sort dropdown {% endcomment %}
               <select class="form-select mt-2" aria-label="Default select example" name="sort">
                 <option selected disabled>Sort By</option>
-                <option value="salary_low">Salary: low to high</option>
-                <option value="salary_high">Salary: high to low</option>
-                <option value="dist_low">Nearest</option>
-                <option value="newest">Newest</option>
+                <option value="salary_low" {% if sort == 'salary_low' %}selected{% endif %}>Salary: low to high</option>
+                <option value="salary_high" {% if sort == 'salary_high' %}selected{% endif %}>Salary: high to low</option>
+                <option value="dist_low" {% if sort == 'dist_low' %}selected{% endif %}>Nearest</option>
+                <option value="newest" {% if sort == 'newest' %}selected{% endif %}>Newest</option>
               </select>
 
             </div>

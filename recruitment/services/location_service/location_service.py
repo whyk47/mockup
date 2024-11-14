@@ -39,4 +39,4 @@ class LocationService:
             raise NoAddressException("Address is required")
         user_location = self.get_point(address)
         queryset = queryset.annotate(distance=Distance('location', user_location))
-        return queryset.order_by('distance').order_by('-remote')
+        return queryset.order_by('-remote', 'distance')

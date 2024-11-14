@@ -18,9 +18,31 @@
             {% endif %}
         </div>
         <div>💼{{ job.job_type }}</div>
-        <div>🕓{{ job.time_since_creation }}</div>
+        <div>🕓{{ job.time_since_creation }} ({{ job.created_at|date:"SHORT_DATE_FORMAT" }})</div>
     </div>
     <div class="mx-2 my-4">
-        {{ job.description }}
+        <div class="mb-4">
+            {{ job.description }}
+        </div>
+        <h5>Mandatory Skills</h5>
+        <ul>
+            {% for s in job.mandatory_skills %}
+                <li>{{ s }}</li>
+            {% endfor %}
+        </ul>
+        <h5>Desirable Skills</h5>
+        <ul>
+            {% for s in job.desirable_skills %}
+                <li>{{ s }}</li>
+            {% endfor %}
+        </ul>
+        <h5>Responsibilities</h5>
+        <ul>
+            {% for r in job.responsibilities %}
+                <li>{{ r }}</li>
+            {% endfor %}
+        </ul>
+        
+
     </div>
 {% endblock %}
