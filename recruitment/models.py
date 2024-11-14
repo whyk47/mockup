@@ -1,6 +1,11 @@
 from django.db import models
 from django.contrib.gis.db.models import PointField
+from django.utils import timezone
+
 from .services.location_service.location_service import LocationService
+
+from datetime import timedelta
+
 
 class Job(models.Model):
     class JobType(models.TextChoices):
@@ -22,6 +27,15 @@ class Job(models.Model):
         loc = LocationService()
         if self.address:
             self.location = loc.get_point(self.address)
-        else:
-            raise Exception("Address is required")
         super().save(*args, **kwargs)
+
+    @property
+    def time_since_creation(self) -> str:
+        delta = timezone.now() - self.created_at
+        if delta.days < 1:
+            return f'{delta / timedelta(hours=1):.0f}h'
+        if delta.days < 31:
+            return f'{delta / timedelta(days=1):.0f}d'
+        if delta.days < 365:
+            return f'{delta / timedelta(days=30):.0f}mo'
+        return f'{delta / timedelta(days=365):.0f}y'

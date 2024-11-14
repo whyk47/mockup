@@ -65,4 +65,7 @@ def index(request: HttpRequest) -> HttpResponse | HttpResponseRedirect:
     })
 
 def details(request: HttpRequest, job_id: int) -> HttpResponse | HttpResponseRedirect:
-    return HttpResponse(f'Job {job_id}')
+    job = Job.objects.get(id=job_id)
+    return render(request, 'recruitment/job.html', {
+        'job': job,
+    })

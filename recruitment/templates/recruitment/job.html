@@ -1,17 +1,26 @@
 {% extends 'recruitment/layout.html' %}
 {% load templates %}
 
-<h3 class="card-title text-dark">{{ job.title }}</h3>
+{% block body %}
+    <h1 class="card-title text-dark">{{ job.title }}</h1>
 
-<div class="card my-1">
-    <div>💲{{ job.monthly_pay|div:'1000' }}k/month</div>
-    <div>🏢{{ job.company }}</div>
-    <div>
-        📍{{ job.address }} 
-        {% if job.distance %}
-            ({{ job.distance.km|floatformat:1 }}km away)
-        {% endif %}
+    <div class="card my-1">
+        <div>💲{{ job.monthly_pay|div:'1000' }}k/month</div>
+        <div>🏢{{ job.company }}</div>
+        <div>
+            {% if job.remote %}
+                📍Remote
+            {% else %}
+                📍{{ job.address }} 
+                {% if job.distance %}
+                    ({{ job.distance.km|floatformat:1 }}km away)
+                {% endif %}
+            {% endif %}
+        </div>
+        <div>💼{{ job.job_type }}</div>
+        <div>🕓{{ job.time_since_creation }}</div>
     </div>
-    <div>💼{{ job.job_type }}</div>
-    <div>📆{{ job.created_at|date:"SHORT_DATE_FORMAT" }}</div>
-</div>
+    <div class="mx-2 my-4">
+        {{ job.description }}
+    </div>
+{% endblock %}
