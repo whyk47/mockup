@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 import os
 from pathlib import Path
-from dotenv import load_dotenv, dotenv_values
+from dotenv import load_dotenv
 
 load_dotenv()
 
@@ -30,7 +30,7 @@ SECRET_KEY = 'django-insecure-dj=k7s883pf)vf6x4oh3k&w%hg4vg(tkt*!@ro5%kee)-cca3$
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', '.vercel.app']
 
 
 # Application definition
@@ -43,8 +43,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.gis',
-    'mapwidgets',
     'django.contrib.humanize',
 ]
 
@@ -135,10 +133,6 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-GOOGLE_MAP_API_KEY = os.environ.get("GOOGLE_MAP_API_KEY")
-
-MAP_WIDGETS = {
-    "GOOGLE_MAP_API_KEY": os.environ.get("GOOGLE_MAP_API_KEY"),
-}
-
 GDAL_LIBRARY_PATH = "C:/OSGeo4W/bin/gdal309.dll"
+
+WSGI_APPLICATION = 'mockup.wsgi.app'
