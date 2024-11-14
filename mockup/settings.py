@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
+    'django.contrib.gis',
 ]
 
 MIDDLEWARE = [
@@ -83,7 +84,8 @@ WSGI_APPLICATION = 'mockup.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'mockup',
+        # * Replace with your own database details
+        'NAME': 'mockup', 
         'USER': 'postgres',
         'PASSWORD': os.environ.get('POSTGRES_PW'),
         'HOST': 'localhost',
@@ -133,6 +135,7 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# * Replace with the path to your GDAL library
 GDAL_LIBRARY_PATH = "C:/OSGeo4W/bin/gdal309.dll"
 
 WSGI_APPLICATION = 'mockup.wsgi.app'
