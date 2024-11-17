@@ -134,7 +134,9 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# * Replace with the path to your GDAL library
+# * For running locally
 # GDAL_LIBRARY_PATH = "C:/OSGeo4W/bin/gdal309.dll"
 
 WSGI_APPLICATION = 'mockup.wsgi.app'
+
+DEFAULT_CHARSET = 'utf-8'
