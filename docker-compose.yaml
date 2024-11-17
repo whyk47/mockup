@@ -1,0 +1,25 @@
+services:
+ db:
+  image: postgis/postgis:17-master
+  ports:
+   - 5432:5432
+  env_file:
+   - .env
+
+ web:
+  build: .
+  ports:
+   - 8000:8000
+  image: yk47/mockup:recruitment
+  env_file:
+   - .env
+  container_name: mockup
+  command: >
+   sh -c "
+   python manage.py makemigrations &&
+   python manage.py migrate &&
+   python manage.py runserver 0.0.0.0:8000
+   "
+  depends_on:
+   - db
+  

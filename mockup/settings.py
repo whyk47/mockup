@@ -30,7 +30,7 @@ SECRET_KEY = 'django-insecure-dj=k7s883pf)vf6x4oh3k&w%hg4vg(tkt*!@ro5%kee)-cca3$
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', '.vercel.app']
+ALLOWED_HOSTS = ['127.0.0.1', '.vercel.app', 'localhost']
 
 
 # Application definition
@@ -84,11 +84,10 @@ WSGI_APPLICATION = 'mockup.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        # * Replace with your own database details
-        'NAME': 'mockup', 
+        'NAME': 'postgres', 
         'USER': 'postgres',
-        'PASSWORD': os.environ.get('POSTGRES_PW'),
-        'HOST': 'localhost',
+        'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
+        'HOST': 'db',
         'PORT': '5432',
     }
 }

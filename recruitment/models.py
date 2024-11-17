@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.gis.db.models import PointField
 from django.utils import timezone
-from django.contrib.postgres.fields import ArrayField
 
 from .services.location_service.location_service import LocationService
 
