@@ -88,9 +88,11 @@ DATABASES = {
         'USER': 'postgres',
         'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
         'HOST': 'mockup.c1446ykc0nzf.ap-southeast-1.rds.amazonaws.com',
+        # * Change HOST to 'db' if running locally
         'PORT': '5432',
     }
 }
+
 
 
 # Password validation
@@ -134,7 +136,6 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# * For running locally
 # GDAL_LIBRARY_PATH = "C:/OSGeo4W/bin/gdal309.dll"
 
 WSGI_APPLICATION = 'mockup.wsgi.app'
