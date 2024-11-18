@@ -85,11 +85,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': 'postgres', 
-        # 'NAME': 'mockup',
         'USER': 'postgres',
         'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
-        'HOST': 'db',
-        # 'HOST': 'localhost',
+        'HOST': 'mockup.c1446ykc0nzf.ap-southeast-1.rds.amazonaws.com',
         'PORT': '5432',
     }
 }
