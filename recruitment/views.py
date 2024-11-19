@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect, HttpRequest
+from django.contrib.admin.views.decorators import staff_member_required
 
 from .services.job_service.job_service import JobService
+from .util import *
 
 job = JobService()
 
@@ -18,7 +20,14 @@ def details(request: HttpRequest, job_id: int) -> HttpResponse | HttpResponseRed
     })
 
 def search(request: HttpRequest) -> HttpResponse | HttpResponseRedirect:
+    # page = get_page(request, job.filter(request).pop('jobs'))
     return render(request, 'recruitment/search.html', {
+        # 'page': page,
         **job.filter(request),
         **request.GET.dict(),
     })
+
+@staff_member_required
+def generate(request: HttpRequest) -> HttpResponse | HttpResponseRedirect:
+    job.generate_jobs(scrape=False, process=False)
+    return HttpResponse('Jobs generated')

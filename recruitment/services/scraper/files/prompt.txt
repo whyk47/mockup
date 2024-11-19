@@ -1,0 +1,21 @@
+Add simulated data to the JSON based on the existing data. The JSON should follow this schema:
+
+Job = {
+
+    "id": int,
+    // do not include fields title, description, mandatory skills, desirable skills and responsibilities in the output
+    // add the following fields based on the excluded fields
+
+    "company": str // english name of company in Singapore,
+
+    "monthly_pay": int // also consider newly generated fields company, remote and job type in calculation,
+
+    "address": str // Singapore address. (street only, do not include unit or postal code e.g. 38 Dakota Crescent),
+
+    "remote": bool // 30% remote jobs, 70% not remote,
+
+    "job_type": str // 70% "Full Time", 15% "Part Time" and 15% "Internship"
+
+}
+
+Return: list[Job]

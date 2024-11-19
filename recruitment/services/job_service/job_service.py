@@ -1,10 +1,13 @@
+import json
 from django.http import HttpRequest
 from django.db.models.query import QuerySet
 from django.db.models import Q
 
-from ...models import Job
+from ...models import Job, JobType
 from ..location_service.location_service import LocationService
 from ..location_service.location_service_exceptions import NoAddressException
+from ..scraper.scraper import Scraper
+from ..scraper.data_processor import DataProcessor
 
 from datetime import datetime, timedelta
 
@@ -40,11 +43,11 @@ class JobService:
         if req.get('remote') == 'remote_only':
             queryset = queryset.filter(remote=True)
         if req.get('full_time') == None:
-            queryset = queryset.exclude(job_type=Job.JobType.FULL_TIME)
+            queryset = queryset.exclude(job_type=JobType.FULL_TIME)
         if req.get('part_time') == None:
-            queryset = queryset.exclude(job_type=Job.JobType.PART_TIME)
+            queryset = queryset.exclude(job_type=JobType.PART_TIME)
         if req.get('intern') == None:
-            queryset = queryset.exclude(job_type=Job.JobType.INTERN)
+            queryset = queryset.exclude(job_type=JobType.INTERN)
 
         match req.get('date'):
             case 'week':
@@ -66,9 +69,39 @@ class JobService:
                     queryset = queryset.order_by('-created_at')
         except NoAddressException as e:
             error = str(e)
+            
             return {'jobs': queryset.all(), 'error': error}
         return {'jobs': queryset.all()}
     
 
     def job(self, job_id: int) -> Job:
         return Job.objects.get(id=job_id)
+    
+    def generate_jobs(self, scrape: bool = True, process: bool = True) -> None:
+        if scrape:
+            scraper = Scraper()
+            scraper.scrape()
+            
+        if process:
+            data_processor = DataProcessor()
+            for i in range(5):
+                print(f'Attempt #{i}')
+                try:
+                    data_processor.process()
+                    break
+                except Exception as e:
+                    print(e)
+            
+        with open('recruitment/services/scraper/files/jobs.json', 'r') as f:
+            jobs = json.load(f)
+
+        for i, job in enumerate(jobs):
+            print(f'Creating job #{i}')
+            try:
+                Job.objects.create(**job)
+            except Exception as e:
+                job.pop('address')
+                job['remote'] = True
+                Job.objects.create(**job)
+
+        

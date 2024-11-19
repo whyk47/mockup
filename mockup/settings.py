@@ -141,3 +141,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 WSGI_APPLICATION = 'mockup.wsgi.app'
 
 DEFAULT_CHARSET = 'utf-8'
+
+CSRF_TRUSTED_ORIGINS = ['https://*.ap-southeast-1.awsapprunner.com','https://*.127.0.0.1']

@@ -6,13 +6,13 @@ from .services.location_service.location_service import LocationService
 
 from datetime import timedelta
 
+class JobType(models.TextChoices):
+    FULL_TIME = "Full Time"
+    PART_TIME = "Part Time"
+    INTERN = "Internship"
+
 
 class Job(models.Model):
-    class JobType(models.TextChoices):
-        FULL_TIME = "Full Time"
-        PART_TIME = "Part Time"
-        INTERN = "Internship"
-
     title = models.CharField(max_length=100)
     description = models.TextField()
     created_at = models.DateTimeField(default=timezone.now)
