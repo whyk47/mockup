@@ -20,7 +20,6 @@ def details(request: HttpRequest, job_id: int) -> HttpResponse | HttpResponseRed
     })
 
 def search(request: HttpRequest) -> HttpResponse | HttpResponseRedirect:
-    # TODO: Pagination
     # page = get_page(request, job.filter(request).pop('jobs'))
     return render(request, 'recruitment/search.html', {
         # 'page': page,
